@@ -1,34 +1,33 @@
-using StockApp.Infra.IoC;
+var builder = WebApplication.CreateBuilder(args);
 
-internal class Program
+// Add services to the container.
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Add CORS
+builder.Services.AddCors(options =>
 {
-    private static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("http://localhost:3000") // Ajuste para a URL do seu front-end
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
 
-        // Add services to the container.
-        builder.Services.AddInfrastructureAPI(builder.Configuration);
+var app = builder.Build();
 
-        builder.Services.AddControllers();
-
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-
-        var app = builder.Build();
-
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
-        app.UseHttpsRedirection();
-
-        app.UseAuthorization();
-
-        app.MapControllers();
-
-        app.Run();
-    }
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCors("AllowSpecificOrigin");
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();

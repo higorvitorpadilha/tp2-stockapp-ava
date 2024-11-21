@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 
 namespace StockApp.Domain.Entities
 {
+
+    namespace StockApp.Domain.Entities
+    {
+        public class Product
+        {
+            public int Id { get; set; }
+            public string Name { get; set; } = string.Empty;
+            public List<Review> Reviews { get; set; } = new List<Review>();
+        }
+    }
     public class Product
     {
         #region Atributos

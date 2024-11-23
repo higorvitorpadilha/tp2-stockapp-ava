@@ -14,6 +14,7 @@ namespace StockApp.Domain.Interfaces
         Task<Product> GetById(int? id);
         Task<Product> Create(Product product);
         Task<Product> Update(Product product);
+        Task<IEnumerable<Product>> GetProductsAsync();
         Task<Product> Remove(Product product);
     }
 }

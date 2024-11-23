@@ -2,42 +2,70 @@
 using StockApp.Domain.Interfaces;
 using StockApp.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace StockApp.Infra.Data.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        ApplicationDbContext _productContext;
+        private readonly ApplicationDbContext _productContext;
+
         public ProductRepository(ApplicationDbContext context)
         {
             _productContext = context;
         }
 
-        public async Task<Product> Create(Product product)
+        public async Task<Product> AddAsync(Product product)
         {
             _productContext.Add(product);
             await _productContext.SaveChangesAsync();
             return product;
         }
 
-        public async Task<Product> GetById(int? id)
+        public Task<Product> Create(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product> GetById(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Product> GetByIdAsync(int? id)
         {
             return await _productContext.Products.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Product>> GetProducts()
+        public Task<IEnumerable<Product>> GetProducts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             return await _productContext.Products.ToListAsync();
         }
 
-        public async Task<Product> Remove(Product product)
+        public Task<Product> Remove(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Product> RemoveAsync(Product product)
         {
             _productContext.Remove(product);
             await _productContext.SaveChangesAsync();
             return product;
         }
 
-        public async Task<Product> Update(Product product)
+        public Task<Product> Update(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Product> UpdateAsync(Product product)
         {
             _productContext.Update(product);
             await _productContext.SaveChangesAsync();
